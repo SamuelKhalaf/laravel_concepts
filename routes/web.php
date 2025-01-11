@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Mail\TestEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SocialController;
 
 Route::get('/send-test-email', function () {
     Mail::to('recipient@example.com')->send(new TestEmail());
@@ -16,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/landing', function () {
     return view('landing');
-});
+})->middleware(['auth'])->name('landing');
 
 Route::get('/about', function () {
     return view('about');
@@ -34,5 +36,8 @@ Route::get('login',function (){
 
 Auth::routes(['verify'=>'true']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
+
+Route::get('redirect/{service}', [SocialController::class, 'redirect']);
+Route::get('callback/{service}', [SocialController::class, 'callback']);
 
