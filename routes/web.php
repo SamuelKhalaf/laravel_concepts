@@ -38,6 +38,8 @@ Auth::routes(['verify'=>'true']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 
+
+// using facebook to login
 Route::get('redirect/{service}', [SocialController::class, 'redirect']);
 Route::get('callback/{service}', [SocialController::class, 'callback']);
 
