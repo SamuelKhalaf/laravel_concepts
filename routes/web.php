@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CrudController;
+use App\Http\Controllers\OfferController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Mail\TestEmail;
@@ -43,8 +43,9 @@ Route::get('/send-test-email', function () {
 // offers routes
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
     Route::group(['prefix' => 'offers'] , function (){
-        Route::get('create', [CrudController::class,'create']);
-        Route::post('store',[CrudController::class,'store'])->name('offers.store');
+        Route::get('/', [OfferController::class,'index']);
+        Route::get('create', [OfferController::class,'create']);
+        Route::post('store',[OfferController::class,'store'])->name('offers.store');
     });
 });
 
