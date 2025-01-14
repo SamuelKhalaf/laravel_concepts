@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\YoutubeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Mail\TestEmail;
@@ -47,5 +48,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
         Route::get('create', [OfferController::class,'create']);
         Route::post('store',[OfferController::class,'store'])->name('offers.store');
     });
+
+    //youtube
+    Route::get('youtube', [YoutubeController::class,'index'])->middleware('auth');
+
 });
 
